@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <div class="userInfo">
+    <% if (currentUser) { %>
+    <p>Currently logged in as <strong><%= currentUser.username %></strong></p>
+    <% } else { %>
+    <p>You are not logged in.</p>
+    <% } %>
+  </div>
+    <div class="signin">
+        <button onclick="window.location.href='/login'">Log In</button>
+      <form action="/logout" method="POST">
+        <button type="submit">Log Out</button>
+      </form>
+    </div>
+    <div class="options">
+        <% if (currentUser) { %><button onclick="window.location.href='/upload'">Upload a file</button> <% } %>
+    </div>
+<div class="files">
+  <% folderObj.forEach(folder => { %>
+    <button onclick="window.location.href='/folder/<%= folder.id %>'">
+      <%= folder.name %>
+    </button>
+  <% }) %>
+</div>
+</body>
+</html>

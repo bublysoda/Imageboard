@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="userInfo">
+        <% if (currentUser) { %>
+        <p>Currently logged in as <strong><%= currentUser.username %></strong></p>
+        <% } else { %>
+        <p>You are not logged in.</p>
+        <% } %>
+  </div>
+  <div class="navigation">
+    <button onclick="window.location.href='/'">Return home</button>
+  <div class="files">
+    <% files.forEach(file => { %>
+      <% const url = `/uploads/folder-${folder.id}/${file}`; %>
+
+      <% if (file.match(/\.(png|jpg|jpeg|gif|webp)$/i)) { %>
+       <img src="<%= url %>" alt="<%= file %>" style="max-width: 300px;">
+      <% } else if (file.match(/\.(mp4|webm|mov)$/i)) { %>
+       <video src="<%= url %>" controls style="max-width: 300px;"></video>
+      <% } else { %>
+        <a href="<%= url %>"><%= file %></a>
+      <% } %>
+    <% }) %>
+  </div>
+
+
+  <% if (currentUser && currentUser.id === folder.owner.id) { %>
+  <div class="owner-controls">
+    <form action="/folder/<%= folder.id %>/delete" method="POST">
+      <button type="submit">Delete folder</button>
+    </form>
+
+  </div>
+  <% } %>
+
+  </div>
+</body>
+</html>

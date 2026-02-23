@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <div class="userInfo">
+    <% if (currentUser) { %>
+    <p>Currently logged in as <strong><%= currentUser.username %></strong></p>
+    <% } else { %>
+    <p>You are not logged in.</p>
+    <% } %>
+  </div>
+  <div class="buttons">
+    <button onclick="window.location.href='/'">Return home</button>
+  </div>
+    <div class="login">
+        <h1>SIGN UP:</h1>
+            <form action="/sign-up" method="post" class="signUp">
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" placeholder="jeffyJ">
+            <label for="password">Password</label>
+            <input type="text" name="password" id="password" placeholder="jeffyjeff123!">
+            <button type="submit">Create User</button>
+            </form>
+            <br>
+            <h1>SIGN IN:</h1>
+            <form action="/sign-in" method="post" class="signIn">
+            <label for="username">Username:</label>
+            <input type="text" name="username" id="username" placeholder="jeffyJ">
+            <label for="password">Password</label>
+            <input type="text" name="password" id="password" placeholder="jeffyjeff123!">
+            <button type="submit">Login</button>
+            </form>
+    </div>
+
+</body>
+</html>

@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <div class="userInfo">
+        <% if (currentUser) { %>
+        <p>Currently logged in as <strong><%= currentUser.username %></strong></p>
+        <% } else { %>
+        <p>You are not logged in.</p>
+        <% } %>
+  </div>
+  <div class="navigation">
+    <button onclick="window.location.href='/'">Return home</button>
+    the user will check here to log into the page!
+  </div>
+</body>
+</html>

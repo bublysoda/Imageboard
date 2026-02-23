@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+  <div class="userInfo">
+    <% if (currentUser) { %>
+    <p>Currently logged in as <strong><%= currentUser.username %></strong></p>
+    <% } else { %>
+    <p>You are not logged in.</p>
+    <% } %>
+  </div>
+  <div class="buttons">
+    <button onclick="window.location.href='/'">Return home</button>
+  </div>
+<ul><h3>File Guidelines:</h3>
+  <li>The filename is required</li>
+  <li>The password is optional</li>
+  <li>You can upload multiple files</li>
+</ul>
+<div class="forms">
+  <form action="/upload" enctype="multipart/form-data" method="post">
+  <div class="formUpload">
+    <input type="text" class="form-control" placeholder="Filename here" name="name">
+    <input type="text" class="form-control" placeholder="Optional password" name="password">
+    <input type="file" class="form-control-file" name="uploaded_files" multiple>
+    <button type="submit">Post new folder</button>
+  </div>
+</form>
+</div>
+</body>
+</html>
