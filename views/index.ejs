@@ -1,33 +1,184 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MiniDrive</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background-color: #f4f6f9;
+    color: #1f2933;
+  }
+
+  .page-wrapper {
+    max-width: 1100px;
+    margin: 50px auto;
+    padding: 0 20px;
+  }
+
+  .card {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    padding: 24px;
+    margin-bottom: 30px;
+  }
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .header p {
+    margin: 0;
+    font-size: 14px;
+    color: #52606d;
+  }
+
+  .auth-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
+
+  button {
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: all 0.2s ease;
+  }
+
+  .primary-btn {
+    background: #1f2933;
+    color: white;
+  }
+
+  .primary-btn:hover {
+    background: #111827;
+  }
+
+  .secondary-btn {
+    background: #e5e7eb;
+    color: #1f2933;
+  }
+
+  .secondary-btn:hover {
+    background: #d1d5db;
+  }
+
+  .danger-btn {
+    background: #ef4444;
+    color: white;
+  }
+
+  .danger-btn:hover {
+    background: #dc2626;
+  }
+
+  .section-title {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 18px;
+  }
+
+  .folders-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+  }
+
+  .folder-card {
+    background: #f9fafb;
+    padding: 18px;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 500;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+
+  .folder-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 16px rgba(0,0,0,0.08);
+  }
+
+  .folder-card button {
+    background: transparent;
+    width: 100%;
+    font-size: 15px;
+  }
+
+  .upload-section {
+    margin-top: 10px;
+  }
+
+  @media (max-width: 600px) {
+    .header {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 15px;
+    }
+  }
+</style>
 </head>
+
 <body>
-  <div class="userInfo">
-    <% if (currentUser) { %>
-    <p>Currently logged in as <strong><%= currentUser.username %></strong></p>
-    <% } else { %>
-    <p>You are not logged in.</p>
-    <% } %>
-  </div>
-    <div class="signin">
-        <button onclick="window.location.href='/login'">Log In</button>
-      <form action="/logout" method="POST">
-        <button type="submit">Log Out</button>
+
+<div class="page-wrapper">
+
+  <!-- Header / User Info -->
+  <div class="card header">
+    <div>
+      <% if (currentUser) { %>
+        <p>Currently logged in as <strong><%= currentUser.username %></strong></p>
+      <% } else { %>
+        <p>You are not logged in.</p>
+      <% } %>
+    </div>
+
+    <div class="auth-buttons">
+      <button class="secondary-btn" onclick="window.location.href='/login'">
+        Log In
+      </button>
+
+      <form action="/logout" method="POST" style="margin:0;">
+        <button type="submit" class="danger-btn">
+          Log Out
+        </button>
       </form>
     </div>
-    <div class="options">
-        <% if (currentUser) { %><button onclick="window.location.href='/upload'">Upload a file</button> <% } %>
+  </div>
+
+  <!-- Upload Option -->
+  <% if (currentUser) { %>
+    <div class="card upload-section">
+      <button class="primary-btn" onclick="window.location.href='/upload'">
+        Upload a File
+      </button>
     </div>
-<div class="files">
-  <% folderObj.forEach(folder => { %>
-    <button onclick="window.location.href='/folder/<%= folder.id %>'">
-      <%= folder.name %>
-    </button>
-  <% }) %>
+  <% } %>
+
+  <!-- Folders Display -->
+  <div class="card">
+    <div class="section-title">Your Folders</div>
+
+    <div class="folders-grid">
+      <% folderObj.forEach(folder => { %>
+        <div class="folder-card">
+          <button onclick="window.location.href='/folder/<%= folder.id %>'">
+            <%= folder.name %>
+          </button>
+        </div>
+      <% }) %>
+    </div>
+  </div>
+
 </div>
+
 </body>
 </html>
