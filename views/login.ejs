@@ -1,40 +1,182 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Authentication</title>
+
+<style>
+  body {
+    margin: 0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    background: #f4f6f9;
+    color: #1f2933;
+  }
+
+  .page-wrapper {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 0 20px;
+  }
+
+  .top-bar {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    padding: 20px;
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .top-bar p {
+    margin: 0;
+    font-size: 14px;
+    color: #52606d;
+  }
+
+  .home-btn {
+    background: #1f2933;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s ease;
+  }
+
+  .home-btn:hover {
+    background: #111827;
+  }
+
+  .auth-container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 30px;
+  }
+
+  .auth-card {
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.06);
+    padding: 30px;
+  }
+
+  .auth-card h2 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 20px;
+    font-weight: 600;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+  }
+
+  label {
+    font-size: 13px;
+    margin-bottom: 6px;
+    color: #52606d;
+  }
+
+  input {
+    padding: 10px 12px;
+    border-radius: 8px;
+    border: 1px solid #d1d5db;
+    margin-bottom: 18px;
+    font-size: 14px;
+    transition: border 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  input:focus {
+    outline: none;
+    border-color: #2563eb;
+    box-shadow: 0 0 0 2px rgba(37,99,235,0.15);
+  }
+
+  .primary-btn {
+    background: #1f2933;
+    color: white;
+    border: none;
+    padding: 10px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+    transition: background 0.2s ease;
+  }
+
+  .primary-btn:hover {
+    background: #111827;
+  }
+
+  @media (max-width: 800px) {
+    .auth-container {
+      grid-template-columns: 1fr;
+    }
+  }
+</style>
 </head>
+
 <body>
-  <div class="userInfo">
-    <% if (currentUser) { %>
-    <p>Currently logged in as <strong><%= currentUser.username %></strong></p>
-    <% } else { %>
-    <p>You are not logged in.</p>
-    <% } %>
-  </div>
-  <div class="buttons">
-    <button onclick="window.location.href='/'">Return home</button>
-  </div>
-    <div class="login">
-        <h1>SIGN UP:</h1>
-            <form action="/sign-up" method="post" class="signUp">
-            <label for="username">Username:</label>
-            <input type="text" name="username" id="username" placeholder="jeffyJ">
-            <label for="password">Password</label>
-            <input type="text" name="password" id="password" placeholder="jeffyjeff123!">
-            <button type="submit">Create User</button>
-            </form>
-            <br>
-            <h1>SIGN IN:</h1>
-            <form action="/sign-in" method="post" class="signIn">
-            <label for="username">Username:</label>
-            <input type="text" name="username" id="username" placeholder="jeffyJ">
-            <label for="password">Password</label>
-            <input type="text" name="password" id="password" placeholder="jeffyjeff123!">
-            <button type="submit">Login</button>
-            </form>
+
+<div class="page-wrapper">
+
+  <!-- Top Bar -->
+  <div class="top-bar">
+    <div>
+      <% if (currentUser) { %>
+        <p>Currently logged in as <strong><%= currentUser.username %></strong></p>
+      <% } else { %>
+        <p>You are not logged in.</p>
+      <% } %>
     </div>
+
+    <button class="home-btn" onclick="window.location.href='/'">
+      Return Home
+    </button>
+  </div>
+
+  <!-- Auth Forms -->
+  <div class="auth-container">
+
+    <!-- Sign Up -->
+    <div class="auth-card">
+      <h2>Create Account</h2>
+      <form action="/sign-up" method="post">
+        <label for="signup-username">Username</label>
+        <input type="text" name="username" id="signup-username" placeholder="jeffyJ">
+
+        <label for="signup-password">Password</label>
+        <input type="text" name="password" id="signup-password" placeholder="jeffyjeff123!">
+
+        <button type="submit" class="primary-btn">
+          Create User
+        </button>
+      </form>
+    </div>
+
+    <!-- Sign In -->
+    <div class="auth-card">
+      <h2>Sign In</h2>
+      <form action="/sign-in" method="post">
+        <label for="signin-username">Username</label>
+        <input type="text" name="username" id="signin-username" placeholder="jeffyJ">
+
+        <label for="signin-password">Password</label>
+        <input type="text" name="password" id="signin-password" placeholder="jeffyjeff123!">
+
+        <button type="submit" class="primary-btn">
+          Login
+        </button>
+      </form>
+    </div>
+
+  </div>
+
+</div>
 
 </body>
 </html>
